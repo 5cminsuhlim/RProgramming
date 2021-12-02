@@ -1,4 +1,4 @@
-best <- function(state, outcome) {
+rankhospital <- function(state, outcome, num = "best") {
         ## Read outcome data
         data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
         
@@ -33,14 +33,18 @@ best <- function(state, outcome) {
                 
                 ## remove rows that have NAs
                 match_data <- match_data[!is.na(match_data[outcome]), ]
-                
+
                 ## order data by outcome count and hospital name
                 match_data <- match_data[order(match_data[[outcome]], match_data[['hospital']]), ]
         }
-        
 
-        ## Return hospital name in that state with lowest 30-day death rate
-        match_data[1, 'hospital']
         
-        
+        ## Return hospital name in that state with the given rank 30-day death rate
+        if(num == 'best'){
+                return(match_data[1, 'hospital']) ## return first hospital
+        } else if(num == 'worst'){
+                return(tail(match_data[['hospital']], 'hospital')) ## return last hospital
+        } else{
+                return(match_data[num, 'hospital']) ## return hospital at specified index
+        }
 }
