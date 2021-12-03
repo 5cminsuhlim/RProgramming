@@ -43,7 +43,7 @@ rankhospital <- function(state, outcome, num = "best") {
         if(num == 'best'){
                 return(match_data[1, 'hospital']) ## return first hospital
         } else if(num == 'worst'){
-                return(tail(match_data[['hospital']], 'hospital')) ## return last hospital
+                return(tail(match_data[['hospital']], 1)) ## return last hospital
         } else{
                 return(match_data[num, 'hospital']) ## return hospital at specified index
         }
