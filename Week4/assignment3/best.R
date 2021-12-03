@@ -6,8 +6,8 @@ best <- function(state, outcome) {
         ## col 7 = state
         ## col 11 = heart attack
         ## col 17 = heart failure
-        ## col 22 = pneumonia
-        df <- data.frame(data[[2]], data[[7]], data[[11]], data[[17]], data[[22]])
+        ## col 23 = pneumonia
+        df <- data.frame(data[[2]], data[[7]], data[[11]], data[[17]], data[[23]])
         
         ## rename columns accordingly
         colnames(df) <- c('hospital', 'state', 'heart attack', 'heart failure', 'pneumonia')

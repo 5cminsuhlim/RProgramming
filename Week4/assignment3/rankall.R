@@ -8,8 +8,8 @@ rankall <- function(outcome, num = "best") {
         ## col 7 = state
         ## col 11 = heart attack
         ## col 17 = heart failure
-        ## col 22 = pneumonia
-        df <- data.frame(data[[2]], data[[7]], data[[11]], data[[17]], data[[22]])
+        ## col 23 = pneumonia
+        df <- data.frame(data[[2]], data[[7]], data[[11]], data[[17]], data[[23]])
         
         ## rename columns accordingly
         colnames(df) <- c('hospital', 'state', 'heart attack', 'heart failure', 'pneumonia')
@@ -33,10 +33,40 @@ rankall <- function(outcome, num = "best") {
         
         ## order data by outcome state name, count, and hospital name
         df <- df[order(df[['state']], df[[outcome]], df[['hospital']]), ]
+        
+        ## split df by state
+        df_split <- split(df, df[['state']])
+        
+        state_list <- c()
+        hosp_list <- c()
+        
+        ## iterate through each unique state
+        for(state in unique(df$state)){
+                ## store current state
+                df_state <- df_split[[state]]
+                
+                if(num == 'best'){
+                        hosp <- df_state[['hospital']][1] ## store best hospital name
+                        
+                } else if(num == 'worst'){
+                        hosp <- tail(df_state[['hospital']], 1) ## store worst hospital name
+                        
+                } else if(num > nrow(df_state)){
+                        hosp <- NA ## if num is greater than number of hospitals, store NA
+                        
+                } else{
+                        
+                        
+                }
+                
+                ## add stored values to respective lists
+                state_list <- append(state_list, state)
+                hosp_list <- append(hosp_list, hosp)
+        }
+        
  
         
         ## Return a data frame with the hospital names and the (abbreviated) state name
-        
         
         
 }
